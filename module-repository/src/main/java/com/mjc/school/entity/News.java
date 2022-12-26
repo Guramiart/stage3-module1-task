@@ -17,16 +17,6 @@ public class News {
         id = increment;
     }
 
-    public News(Long id, String title, String content, LocalDateTime createDate, LocalDateTime lastUpdateDate, Long authorId) {
-        increment = id;
-        this.id = increment;
-        this.title = title;
-        this.content = content;
-        this.createDate = createDate;
-        this.lastUpdateDate = lastUpdateDate;
-        this.authorId = authorId;
-    }
-
     public Long getId() {
         return id;
     }
@@ -73,5 +63,48 @@ public class News {
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    public static NewsBuilder getBuilder() {
+        return new NewsBuilder();
+    }
+
+    public static class NewsBuilder {
+
+        private final News news = new News();
+
+        public NewsBuilder setId(Long id){
+            news.id = id;
+            return this;
+        }
+
+        public NewsBuilder setTitle(String title) {
+            news.title = title;
+            return this;
+        }
+
+        public NewsBuilder setContent(String content) {
+            news.content = content;
+            return this;
+        }
+
+        public NewsBuilder setCreateDate(LocalDateTime createDate) {
+            news.createDate = createDate;
+            return this;
+        }
+
+        public NewsBuilder setLastUpdateDate(LocalDateTime lastUpdateDate) {
+            news.lastUpdateDate = lastUpdateDate;
+            return this;
+        }
+
+        public NewsBuilder setAuthorId(Long authorId) {
+            news.authorId = authorId;
+            return this;
+        }
+
+        public News build() {
+            return news;
+        }
     }
 }
