@@ -79,6 +79,10 @@ public class SourceLoader {
         return newsList.add(entity);
     }
 
+    public boolean removeNewsFromList(News entity) {
+        return newsList.remove(entity);
+    }
+
     public List<Author> getAuthorList() {
         return new ArrayList<>(authorList);
     }
