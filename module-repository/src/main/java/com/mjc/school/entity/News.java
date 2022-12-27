@@ -17,19 +17,24 @@ public class News {
         id = increment;
     }
 
-    public Long getId() {
-        return id;
+    public News(String title, String content, Long authorId) {
+        this();
+        this.title = title;
+        this.content = content;
+        this.createDate = LocalDateTime.now();
+        this.lastUpdateDate = LocalDateTime.now();
+        this.authorId = authorId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    private void setTitle(String title) {
         this.title = title;
     }
 
@@ -37,7 +42,7 @@ public class News {
         return content;
     }
 
-    public void setContent(String content) {
+    private void setContent(String content) {
         this.content = content;
     }
 
@@ -45,15 +50,11 @@ public class News {
         return createDate;
     }
 
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
     public LocalDateTime getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+    private void setLastUpdateDate(LocalDateTime lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
@@ -61,8 +62,16 @@ public class News {
         return authorId;
     }
 
-    public void setAuthorId(Long authorId) {
+    private void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    public News updateNews(News news) {
+        setTitle(news.title);
+        setContent(news.content);
+        setAuthorId(news.authorId);
+        setLastUpdateDate(LocalDateTime.now());
+        return this;
     }
 
     public static NewsBuilder getBuilder() {
