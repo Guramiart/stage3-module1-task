@@ -13,14 +13,28 @@ import java.util.Objects;
 
 public class SourceLoader {
 
+    private static SourceLoader instance;
     private static final String NEWS = "/news.txt";
     private static final String AUTHOR = "/author.txt";
     private static final String DELIMITER = ";";
 
-    private final List<News> newsList = new ArrayList<>();
-    private final List<Author> authorList = new ArrayList<>();
+    private final List<News> newsList;
+    private final List<Author> authorList;
 
-    public List<News> getNewsList() {
+    private SourceLoader() {
+        newsList = initNewsList();
+        authorList = initAuthorList();
+    }
+
+    public static SourceLoader getInstance() {
+        if(instance == null) {
+            instance = new SourceLoader();
+        }
+        return instance;
+    }
+
+    private List<News> initNewsList() {
+        List<News> newsList = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(
                 new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(NEWS))))) {
             String line;
@@ -42,17 +56,31 @@ public class SourceLoader {
         }
     }
 
-    public List<Author> getAuthorList() {
+    private List<Author> initAuthorList() {
+        List<Author> authors = new ArrayList<>();
         try(BufferedReader reader = new BufferedReader(
                 new InputStreamReader(Objects.requireNonNull(getClass().getResourceAsStream(AUTHOR))))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(DELIMITER);
-                authorList.add(new Author(Long.parseLong(data[0]), data[1]));
+                authors.add(new Author(Long.parseLong(data[0]), data[1]));
             }
-            return authorList;
+            return authors;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
+    public List<News> getNewsList() {
+        return new ArrayList<>(newsList);
+    }
+
+    public boolean setNewsToList(News entity) {
+        return newsList.add(entity);
+    }
+
+    public List<Author> getAuthorList() {
+        return new ArrayList<>(authorList);
+    }
+
 }
