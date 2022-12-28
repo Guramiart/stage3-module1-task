@@ -9,13 +9,13 @@ import java.util.Optional;
 
 public interface NewsService<T extends NewsDTO> {
 
-    Optional<T> createNews(String title, String content, Long authorId);
+    T createNews(String title, String content, Long authorId);
 
     List<T> getAllNews();
 
-    Optional<T> getNewsById(Long id);
+    T getNewsById(Long id);
 
-    Optional<T> updateNews(String title, String content, Long authorId);
+    T updateNews(String title, String content, Long authorId);
 
     boolean deleteNews(Long id);
 

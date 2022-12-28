@@ -24,8 +24,17 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> createNews(String title, String content, Long authorId) {
-        return Optional.empty();
+    public NewsDTO createNews(String title, String content, Long authorId) {
+        Optional<News> news = newsDAO.create(new News(title, content, authorId));
+        NewsDTO newsDTO = null;
+        if(news.isPresent()) {
+            System.out.println(news);
+            Optional<Author> author = authorDAO.getEntityById(news.get().getAuthorId());
+            if(author.isPresent()) {
+                newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(news.get(), author.get());
+            }
+        }
+        return newsDTO;
     }
 
     @Override
@@ -39,13 +48,13 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> getNewsById(Long id) {
-        return Optional.empty();
+    public NewsDTO getNewsById(Long id) {
+        return null;
     }
 
     @Override
-    public Optional<NewsDTO> updateNews(String title, String content, Long authorId) {
-        return Optional.empty();
+    public NewsDTO updateNews(String title, String content, Long authorId) {
+        return null;
     }
 
     @Override
