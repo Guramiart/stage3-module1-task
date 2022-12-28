@@ -5,6 +5,7 @@ import com.mjc.school.entity.News;
 import com.mjc.school.loader.SourceLoader;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class NewsDAO implements GenericDAO<News> {
@@ -33,7 +34,7 @@ public class NewsDAO implements GenericDAO<News> {
     public Optional<News> getEntityById(Long id) {
         Optional<News> news = Optional.empty();
         for (News elem : sourceLoader.getNewsList()) {
-            if(elem.getId().compareTo(id) == 0) {
+            if(Objects.equals(elem.getId(), id)) {
                 news = Optional.of(elem);
                 break;
             }
@@ -45,7 +46,7 @@ public class NewsDAO implements GenericDAO<News> {
     public Optional<News> update(News entity) {
         Optional<News> news = Optional.empty();
         for(News elem : sourceLoader.getNewsList()) {
-            if(elem.getId().compareTo(entity.getId()) == 0) {
+            if(Objects.equals(elem.getId(), entity.getId())) {
                 news = Optional.ofNullable(elem.updateNews(entity));
             }
         }
@@ -54,6 +55,11 @@ public class NewsDAO implements GenericDAO<News> {
 
     @Override
     public boolean delete(Long id) {
+        for(News elem : sourceLoader.getNewsList()) {
+            if(Objects.equals(elem.getId(), id)) {
+                return sourceLoader.removeNewsFromList(elem);
+            }
+        }
         return false;
     }
 }
