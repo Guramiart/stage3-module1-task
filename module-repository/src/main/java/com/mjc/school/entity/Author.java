@@ -1,12 +1,14 @@
 package com.mjc.school.entity;
 
-public class Author extends Key {
+public class Author extends Entity {
+
+    private static Long increment = 0L;
 
     private Long id;
     private String name;
 
     public Author() {
-        id = super.getId();
+        super(++increment);
     }
 
     public Author(String name) {
@@ -20,10 +22,6 @@ public class Author extends Key {
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public static AuthorBuilder getBuilder() {

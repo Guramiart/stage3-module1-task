@@ -2,7 +2,9 @@ package com.mjc.school.entity;
 
 import java.time.LocalDateTime;
 
-public class News extends Key {
+public class News extends Entity {
+
+    private static Long increment = 0L;
 
     private Long id;
     private String title;
@@ -12,12 +14,12 @@ public class News extends Key {
     private Long authorId;
 
     public News() {
-        super();
-        id = super.getId();
+        super(++increment);
     }
 
     public News(String title, String content, Long authorId) {
         this();
+        id = super.getId();
         this.title = title;
         this.content = content;
         this.createDate = LocalDateTime.now();
@@ -25,6 +27,7 @@ public class News extends Key {
         this.authorId = authorId;
     }
 
+    @Override
     public Long getId() {
         return id;
     }
@@ -33,16 +36,8 @@ public class News extends Key {
         return title;
     }
 
-    private void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    private void setContent(String content) {
-        this.content = content;
     }
 
     public LocalDateTime getCreateDate() {
@@ -53,23 +48,15 @@ public class News extends Key {
         return lastUpdateDate;
     }
 
-    private void setLastUpdateDate(LocalDateTime lastUpdateDate) {
-        this.lastUpdateDate = lastUpdateDate;
-    }
-
     public Long getAuthorId() {
         return authorId;
     }
 
-    private void setAuthorId(Long authorId) {
-        this.authorId = authorId;
-    }
-
     public News updateNews(News news) {
-        setTitle(news.title);
-        setContent(news.content);
-        setAuthorId(news.authorId);
-        setLastUpdateDate(LocalDateTime.now());
+        title = news.title;
+        content = news.content;
+        authorId = news.authorId;
+        lastUpdateDate = LocalDateTime.now();
         return this;
     }
 

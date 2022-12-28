@@ -1,13 +1,13 @@
 package com.mjc.school.dao;
 
-import com.mjc.school.entity.Key;
+import com.mjc.school.entity.Entity;
 import com.mjc.school.loader.SourceLoader;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public abstract class AbstractDAO<T extends Key> implements GenericDAO<T> {
+public abstract class AbstractDAO<T extends Entity> implements GenericDAO<T> {
 
     private final SourceLoader sourceLoader;
 
