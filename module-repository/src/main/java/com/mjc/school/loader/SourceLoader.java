@@ -40,15 +40,14 @@ public class SourceLoader {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(DELIMITER);
-                News news = News.getBuilder()
+                newsList.add(News.getBuilder()
                         .setId(Long.parseLong(data[0]))
                         .setTitle(data[1])
                         .setContent(data[2])
                         .setCreateDate(LocalDateTime.parse(data[3]))
                         .setLastUpdateDate(LocalDateTime.parse(data[4]))
                         .setAuthorId(Long.parseLong(data[5]))
-                        .build();
-                newsList.add(news);
+                        .build());
             }
             return newsList;
         } catch (IOException e) {
@@ -63,7 +62,10 @@ public class SourceLoader {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(DELIMITER);
-                authors.add(new Author(Long.parseLong(data[0]), data[1]));
+                authors.add(Author.getBuilder()
+                        .setId(Long.parseLong(data[0]))
+                        .setName(data[1])
+                        .build());
             }
             return authors;
         } catch (IOException e) {

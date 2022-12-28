@@ -2,9 +2,8 @@ package com.mjc.school.entity;
 
 import java.time.LocalDateTime;
 
-public class News {
+public class News extends Key {
 
-    private static Long increment = 0L;
     private Long id;
     private String title;
     private String content;
@@ -13,8 +12,8 @@ public class News {
     private Long authorId;
 
     public News() {
-        increment++;
-        id = increment;
+        super();
+        id = super.getId();
     }
 
     public News(String title, String content, Long authorId) {
