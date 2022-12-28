@@ -20,7 +20,7 @@ public class NewsDAO extends AbstractDAO<News> {
     @Override
     public Optional<News> create(News entity) {
         Optional<News> news = Optional.empty();
-        if(isAuthorExist(entity.getId()) && getSourceLoader().setNewsToList(entity)) {
+        if(isAuthorExist(entity.getAuthorId()) && getSourceLoader().setNewsToList(entity)) {
             news = Optional.of(entity);
         }
         return news;
@@ -30,7 +30,7 @@ public class NewsDAO extends AbstractDAO<News> {
     public Optional<News> update(News entity) {
         Optional<News> news = Optional.empty();
         Optional<News> sourceNews = getEntityById(entity.getId());
-        if(sourceNews.isPresent() && isAuthorExist(entity.getId())) {
+        if(sourceNews.isPresent() && isAuthorExist(entity.getAuthorId())) {
             news = Optional.ofNullable(sourceNews.get().updateNews(entity));
         }
         return news;

@@ -28,7 +28,6 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
         Optional<News> news = newsDAO.create(new News(title, content, authorId));
         NewsDTO newsDTO = null;
         if(news.isPresent()) {
-            System.out.println(news);
             Optional<Author> author = authorDAO.getEntityById(news.get().getAuthorId());
             if(author.isPresent()) {
                 newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(news.get(), author.get());
