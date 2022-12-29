@@ -1,6 +1,9 @@
 package com.mjc.school.dto;
 
+import com.mjc.school.entity.News;
+
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class NewsDTO {
 
@@ -67,6 +70,18 @@ public class NewsDTO {
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewsDTO news = (NewsDTO) o;
+        return Objects.equals(title, news.title)
+                && Objects.equals(content, news.content)
+                && Objects.equals(createDate, news.createDate)
+                && Objects.equals(lastUpdateDate, news.lastUpdateDate)
+                && Objects.equals(authorId, news.authorId);
     }
 
     @Override

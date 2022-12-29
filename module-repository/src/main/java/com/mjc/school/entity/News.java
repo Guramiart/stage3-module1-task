@@ -1,6 +1,7 @@
 package com.mjc.school.entity;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class News extends Entity {
 
@@ -54,6 +55,23 @@ public class News extends Entity {
 
     public void setAuthorId(Long authorId) {
         this.authorId = authorId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return Objects.equals(title, news.title)
+                && Objects.equals(content, news.content)
+                && Objects.equals(createDate, news.createDate)
+                && Objects.equals(lastUpdateDate, news.lastUpdateDate)
+                && Objects.equals(authorId, news.authorId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, content, createDate, lastUpdateDate, authorId);
     }
 
     public News updateNews(News news) {

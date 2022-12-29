@@ -60,7 +60,7 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
 
     @Override
     public boolean deleteNews(Long id) {
-        return false;
+        return newsDAO.delete(id);
     }
 
 }
