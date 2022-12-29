@@ -2,7 +2,7 @@ package com.mjc.school.entity;
 
 public class Entity {
 
-    private final Long id;
+    private Long id;
 
     public Entity(Long id) {
         this.id = id;
@@ -10,5 +10,6 @@ public class Entity {
     public Long getId() {
         return id;
     }
+    public void setId(Long id) { this.id = id; }
 
 }

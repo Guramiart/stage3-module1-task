@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 
 public class News extends Entity {
 
-    private static Long increment = 0L;
-
-    private Long id;
     private String title;
     private String content;
     private LocalDateTime createDate;
@@ -14,48 +11,55 @@ public class News extends Entity {
     private Long authorId;
 
     public News() {
-        super(++increment);
-    }
-
-    public News(String title, String content, Long authorId) {
-        this();
-        id = super.getId();
-        this.title = title;
-        this.content = content;
-        this.createDate = LocalDateTime.now();
-        this.lastUpdateDate = LocalDateTime.now();
-        this.authorId = authorId;
-    }
-
-    @Override
-    public Long getId() {
-        return id;
+        super(0L);
+        createDate = LocalDateTime.now();
+        lastUpdateDate = LocalDateTime.now();
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getContent() {
         return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public LocalDateTime getCreateDate() {
         return createDate;
     }
 
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
     public LocalDateTime getLastUpdateDate() {
         return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(LocalDateTime lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
     }
 
     public Long getAuthorId() {
         return authorId;
     }
 
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
+    }
+
     public News updateNews(News news) {
-        title = news.title;
-        content = news.content;
-        authorId = news.authorId;
+        setTitle(news.title);
+        setContent(news.content);
+        setAuthorId(news.authorId);
         lastUpdateDate = LocalDateTime.now();
         return this;
     }
@@ -69,7 +73,7 @@ public class News extends Entity {
         private final News news = new News();
 
         public NewsBuilder setId(Long id){
-            news.id = id;
+            news.setId(id);
             return this;
         }
 

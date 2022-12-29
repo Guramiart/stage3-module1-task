@@ -21,6 +21,9 @@ public class SourceLoader {
     private final List<News> newsList;
     private final List<Author> authorList;
 
+    private static Long newsIncrement = 0L;
+    private static Long authorIncrement = 0L;
+
     private SourceLoader() {
         newsList = initNewsList();
         authorList = initAuthorList();
@@ -48,6 +51,7 @@ public class SourceLoader {
                         .setLastUpdateDate(LocalDateTime.parse(data[4]))
                         .setAuthorId(Long.parseLong(data[5]))
                         .build());
+                newsIncrement++;
             }
             return newsList;
         } catch (IOException e) {
@@ -66,6 +70,7 @@ public class SourceLoader {
                         .setId(Long.parseLong(data[0]))
                         .setName(data[1])
                         .build());
+                authorIncrement++;
             }
             return authors;
         } catch (IOException e) {
@@ -77,8 +82,16 @@ public class SourceLoader {
         return new ArrayList<>(newsList);
     }
 
-    public boolean setNewsToList(News entity) {
-        return newsList.add(entity);
+    public News addNewsToList(News entity) {
+        News news = News.getBuilder()
+                .setId(++newsIncrement)
+                .setContent(entity.getContent())
+                .setTitle(entity.getTitle())
+                .setLastUpdateDate(LocalDateTime.now())
+                .setAuthorId(entity.getAuthorId())
+                .build();
+        newsList.add(news);
+        return news;
     }
 
     public boolean removeNewsFromList(News entity) {

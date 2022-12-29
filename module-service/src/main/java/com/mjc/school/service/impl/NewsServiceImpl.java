@@ -1,10 +1,8 @@
 package com.mjc.school.service.impl;
 
 import com.mjc.school.dao.AbstractDAO;
-import com.mjc.school.dao.impl.AuthorDAO;
 import com.mjc.school.dao.impl.NewsDAO;
 import com.mjc.school.dto.NewsDTO;
-import com.mjc.school.entity.Author;
 import com.mjc.school.entity.News;
 import com.mjc.school.mapper.NewsMapper;
 import com.mjc.school.service.NewsService;
@@ -16,22 +14,17 @@ import java.util.Optional;
 public class NewsServiceImpl implements NewsService<NewsDTO> {
 
     private final AbstractDAO<News> newsDAO;
-    private final AbstractDAO<Author> authorDAO;
 
     public NewsServiceImpl() {
         newsDAO = new NewsDAO();
-        authorDAO = new AuthorDAO();
     }
 
     @Override
-    public NewsDTO createNews(String title, String content, Long authorId) {
-        Optional<News> news = newsDAO.create(new News(title, content, authorId));
-        NewsDTO newsDTO = null;
-        if(news.isPresent()) {
-            Optional<Author> author = authorDAO.getEntityById(news.get().getAuthorId());
-            if(author.isPresent()) {
-                newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(news.get(), author.get());
-            }
+    public Optional<NewsDTO> createNews(News news) {
+        Optional<News> optionalNews = newsDAO.create(news);
+        Optional<NewsDTO> newsDTO = Optional.empty();
+        if(optionalNews.isPresent()) {
+            newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
         }
         return newsDTO;
     }
@@ -40,20 +33,29 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     public List<NewsDTO> getAllNews() {
         List<NewsDTO> news = new ArrayList<>();
         for(News elem : newsDAO.getAll()) {
-            Optional<Author> author = authorDAO.getEntityById(elem.getAuthorId());
-            author.ifPresent(value -> news.add(NewsMapper.INSTANCE.newsToNewsDTO(elem, value)));
+            news.add(NewsMapper.INSTANCE.newsToNewsDTO(elem));
         }
         return news;
     }
 
     @Override
-    public NewsDTO getNewsById(Long id) {
-        return null;
+    public Optional<NewsDTO> getNewsById(Long id) {
+        Optional<NewsDTO> newsDTO = Optional.empty();
+        Optional<News> news = newsDAO.getEntityById(id);
+        if(news.isPresent()) {
+            newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(news.get()));
+        }
+        return newsDTO;
     }
 
     @Override
-    public NewsDTO updateNews(String title, String content, Long authorId) {
-        return null;
+    public Optional<NewsDTO> updateNews(News news) {
+        Optional<NewsDTO> newsDTO = Optional.empty();
+        Optional<News> updateNews = newsDAO.update(news);
+        if(updateNews.isPresent()) {
+            newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
+        }
+        return newsDTO;
     }
 
     @Override

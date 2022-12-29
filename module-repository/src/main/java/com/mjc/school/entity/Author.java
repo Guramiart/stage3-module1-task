@@ -2,26 +2,23 @@ package com.mjc.school.entity;
 
 public class Author extends Entity {
 
-    private static Long increment = 0L;
-
-    private Long id;
     private String name;
 
     public Author() {
-        super(++increment);
+        super(0L);
     }
 
-    public Author(String name) {
-        this();
+    public Author(Long id, String name) {
+        super(id);
         this.name = name;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public static AuthorBuilder getBuilder() {
@@ -33,7 +30,7 @@ public class Author extends Entity {
         private final Author author = new Author();
 
         public AuthorBuilder setId(Long id) {
-            author.id = id;
+            author.setId(id);
             return this;
         }
         public AuthorBuilder setName(String name) {

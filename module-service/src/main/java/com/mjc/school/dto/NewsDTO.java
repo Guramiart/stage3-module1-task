@@ -9,15 +9,16 @@ public class NewsDTO {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime lastUpdateDate;
-    private String authorName;
+    private Long authorId;
 
-    public NewsDTO(Long id, String title, String content, LocalDateTime createDate, LocalDateTime lastUpdateDate, String authorName) {
+    public NewsDTO() {}
+    public NewsDTO(Long id, String title, String content, LocalDateTime createDate, LocalDateTime lastUpdateDate, Long authorId) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createDate = createDate;
         this.lastUpdateDate = lastUpdateDate;
-        this.authorName = authorName;
+        this.authorId = authorId;
     }
 
     public Long getId() {
@@ -60,17 +61,17 @@ public class NewsDTO {
         this.lastUpdateDate = lastUpdateDate;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public Long getAuthorId() {
+        return authorId;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setAuthorId(Long authorId) {
+        this.authorId = authorId;
     }
 
     @Override
     public String toString() {
-        return String.format("id=%d;title=%s;content=%s;createDate=%s;updateDate=%s;author=%s",
-                id, title, content, createDate, lastUpdateDate, authorName);
+        return String.format("%s[id=%d, title=%s, content=%s, createDate=%s, lastUpdateDate=%s, authorId=%d]",
+                getClass().getSimpleName(), id, title, content, createDate, lastUpdateDate, authorId);
     }
 }
