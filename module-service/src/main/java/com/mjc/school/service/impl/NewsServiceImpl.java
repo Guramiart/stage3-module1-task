@@ -6,6 +6,7 @@ import com.mjc.school.dto.NewsDTO;
 import com.mjc.school.entity.News;
 import com.mjc.school.mapper.NewsMapper;
 import com.mjc.school.service.NewsService;
+import com.mjc.school.utils.StringValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,17 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
 
     @Override
     public Optional<NewsDTO> createNews(News news) {
-        Optional<News> optionalNews = newsDAO.create(news);
-        Optional<NewsDTO> newsDTO = Optional.empty();
-        if(optionalNews.isPresent()) {
-            newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
+        if(StringValidator.isTitleValid(news.getTitle())
+                && StringValidator.isContentValid(news.getContent())) {
+            Optional<News> optionalNews = newsDAO.create(news);
+            Optional<NewsDTO> newsDTO = Optional.empty();
+            if(optionalNews.isPresent()) {
+                newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
+            }
+            return newsDTO;
+        } else {
+            throw new IllegalArgumentException();
         }
-        return newsDTO;
     }
 
     @Override
@@ -50,12 +56,17 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
 
     @Override
     public Optional<NewsDTO> updateNews(News news) {
-        Optional<NewsDTO> newsDTO = Optional.empty();
-        Optional<News> updateNews = newsDAO.update(news);
-        if(updateNews.isPresent()) {
-            newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
+        if(StringValidator.isTitleValid(news.getTitle())
+                && StringValidator.isContentValid(news.getContent())) {
+            Optional<NewsDTO> newsDTO = Optional.empty();
+            Optional<News> updateNews = newsDAO.update(news);
+            if(updateNews.isPresent()) {
+                newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
+            }
+            return newsDTO;
+        } else {
+            throw new IllegalArgumentException();
         }
-        return newsDTO;
     }
 
     @Override
