@@ -4,6 +4,8 @@ import com.mjc.school.dao.AbstractDAO;
 import com.mjc.school.dao.impl.NewsDAO;
 import com.mjc.school.dto.NewsDTO;
 import com.mjc.school.entity.News;
+import com.mjc.school.exception.ArgumentValidException;
+import com.mjc.school.exception.ServiceException;
 import com.mjc.school.mapper.NewsMapper;
 import com.mjc.school.service.NewsService;
 import com.mjc.school.utils.StringValidator;
@@ -21,18 +23,20 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> createNews(News news) {
-        if(StringValidator.isTitleValid(news.getTitle())
-                && StringValidator.isContentValid(news.getContent())) {
-            Optional<News> optionalNews = newsDAO.create(news);
-            Optional<NewsDTO> newsDTO = Optional.empty();
-            if(optionalNews.isPresent()) {
-                newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
+    public Optional<NewsDTO> createNews(News news) throws ServiceException {
+        Optional<NewsDTO> newsDTO = Optional.empty();
+        try {
+            if(StringValidator.isTitleValid(news.getTitle())
+                    && StringValidator.isContentValid(news.getContent())) {
+                Optional<News> optionalNews = newsDAO.create(news);
+                if(optionalNews.isPresent()) {
+                    newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
+                }
             }
-            return newsDTO;
-        } else {
-            throw new IllegalArgumentException();
+        } catch (ArgumentValidException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
+        return newsDTO;
     }
 
     @Override
@@ -55,18 +59,20 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> updateNews(News news) {
-        if(StringValidator.isTitleValid(news.getTitle())
-                && StringValidator.isContentValid(news.getContent())) {
-            Optional<NewsDTO> newsDTO = Optional.empty();
-            Optional<News> updateNews = newsDAO.update(news);
-            if(updateNews.isPresent()) {
-                newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
+    public Optional<NewsDTO> updateNews(News news) throws ServiceException{
+        Optional<NewsDTO> newsDTO = Optional.empty();
+        try {
+            if(StringValidator.isTitleValid(news.getTitle())
+                    && StringValidator.isContentValid(news.getContent())) {
+                Optional<News> updateNews = newsDAO.update(news);
+                if(updateNews.isPresent()) {
+                    newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
+                }
             }
-            return newsDTO;
-        } else {
-            throw new IllegalArgumentException();
+        } catch (ArgumentValidException e) {
+            throw new ServiceException(e.getMessage(), e);
         }
+        return newsDTO;
     }
 
     @Override
