@@ -23,12 +23,12 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> createNews(News news) throws ServiceException {
+    public Optional<NewsDTO> createNews(NewsDTO news) throws ServiceException {
         Optional<NewsDTO> newsDTO = Optional.empty();
         try {
             if(StringValidator.isTitleValid(news.getTitle())
                     && StringValidator.isContentValid(news.getContent())) {
-                Optional<News> optionalNews = newsDAO.create(news);
+                Optional<News> optionalNews = newsDAO.create(NewsMapper.INSTANCE.newsDTOtoNews(news));
                 if(optionalNews.isPresent()) {
                     newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
                 }
@@ -59,12 +59,12 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> updateNews(News news) throws ServiceException{
+    public Optional<NewsDTO> updateNews(NewsDTO news) throws ServiceException{
         Optional<NewsDTO> newsDTO = Optional.empty();
         try {
             if(StringValidator.isTitleValid(news.getTitle())
                     && StringValidator.isContentValid(news.getContent())) {
-                Optional<News> updateNews = newsDAO.update(news);
+                Optional<News> updateNews = newsDAO.update(NewsMapper.INSTANCE.newsDTOtoNews(news));
                 if(updateNews.isPresent()) {
                     newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
                 }

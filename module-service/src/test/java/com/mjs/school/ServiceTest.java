@@ -41,7 +41,7 @@ public class ServiceTest {
 
     @Test
     public void createNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.createNews(newsWithoutId).get();
+        NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsWithoutId)).get();
 
         assertEquals(newsWithoutId.getTitle(), newsDTO.getTitle());
         assertEquals(newsWithoutId.getContent(), newsDTO.getContent());
@@ -50,7 +50,7 @@ public class ServiceTest {
 
     @Test
     public void updateNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.updateNews(newsWithId).get();
+        NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsWithId)).get();
 
         assertEquals(newsWithId.getTitle(), newsDTO.getTitle());
         assertEquals(newsWithId.getContent(), newsDTO.getContent());
@@ -67,8 +67,12 @@ public class ServiceTest {
 
     @Test
     public void validationTest() {
-        News invalidTitle = News.getBuilder().setTitle("T").setContent("Content").build();
-        News invalidContent = News.getBuilder().setTitle("TestTitle").setContent("C").build();
+        NewsDTO invalidTitle = new NewsDTO();
+        invalidTitle.setTitle("T");
+        invalidTitle.setContent("Content");
+        NewsDTO invalidContent = new NewsDTO();
+        invalidContent.setTitle("TestTitle");
+        invalidContent.setContent("C");
         assertThrows(ServiceException.class, () -> newsService.createNews(invalidTitle));
         assertThrows(ServiceException.class, () -> newsService.createNews(invalidContent));
         assertThrows(ServiceException.class, () -> newsService.updateNews(invalidTitle));
