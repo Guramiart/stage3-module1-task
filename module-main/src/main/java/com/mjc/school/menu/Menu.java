@@ -15,7 +15,10 @@ public class Menu {
 
     public void run() {
         try(Scanner sc = new Scanner(System.in)) {
-
+            while (true) {
+                OperationFactory.getOperationList().forEach(System.out::println);
+                OperationFactory.getCommand(sc, controller).execute(sc);
+            }
         }
     }
 
