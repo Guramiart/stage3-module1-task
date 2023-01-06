@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-01-06T09:25:20+0300",
+    date = "2023-01-06T15:52:47+0300",
     comments = "version: 1.5.3.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.2.jar, environment: Java 17.0.1 (Oracle Corporation)"
 )
 public class NewsMapperImpl implements NewsMapper {
@@ -17,7 +17,7 @@ public class NewsMapperImpl implements NewsMapper {
             return null;
         }
 
-        NewsDTO newsDTO = new NewsDTO();
+        NewsDTO.NewsDTOBuilder newsDTO = NewsDTO.getBuilder();
 
         newsDTO.setId( news.getId() );
         newsDTO.setTitle( news.getTitle() );
@@ -26,7 +26,7 @@ public class NewsMapperImpl implements NewsMapper {
         newsDTO.setLastUpdateDate( news.getLastUpdateDate() );
         newsDTO.setAuthorId( news.getAuthorId() );
 
-        return newsDTO;
+        return newsDTO.build();
     }
 
     @Override

@@ -7,7 +7,6 @@ import com.mjc.school.service.NewsService;
 import com.mjc.school.service.impl.NewsServiceImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 public class NewsController implements Controller<NewsDTO> {
 
@@ -19,23 +18,23 @@ public class NewsController implements Controller<NewsDTO> {
     }
 
     @Override
-    public Optional<NewsDTO> getNewsById(Long id) {
-        return newsService.getNewsById(id);
+    public NewsDTO getNewsById(Long id) {
+        return newsService.getNewsById(id).get();
     }
 
     @Override
-    public Optional<NewsDTO> create(NewsDTO entity) {
+    public NewsDTO create(NewsDTO entity) {
         try {
-            return newsService.createNews(entity);
+            return newsService.createNews(entity).get();
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
-    public Optional<NewsDTO> update(NewsDTO entity) {
+    public NewsDTO update(NewsDTO entity) {
         try {
-            return newsService.updateNews(entity);
+            return newsService.updateNews(entity).get();
         } catch (ServiceException e) {
             throw new RuntimeException();
         }

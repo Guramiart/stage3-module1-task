@@ -8,7 +8,7 @@ import com.mjc.school.exception.ArgumentValidException;
 import com.mjc.school.exception.ServiceException;
 import com.mjc.school.mapper.NewsMapper;
 import com.mjc.school.service.NewsService;
-import com.mjc.school.utils.StringValidator;
+import com.mjc.school.utils.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +26,17 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     public Optional<NewsDTO> createNews(NewsDTO news) throws ServiceException {
         Optional<NewsDTO> newsDTO = Optional.empty();
         try {
-            if(StringValidator.isTitleValid(news.getTitle())
-                    && StringValidator.isContentValid(news.getContent())) {
+            if(Validator.isTitleValid(news.getTitle())
+                    && Validator.isContentValid(news.getContent())) {
                 Optional<News> optionalNews = newsDAO.create(NewsMapper.INSTANCE.newsDTOtoNews(news));
                 if(optionalNews.isPresent()) {
                     newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
                 }
             }
+            return newsDTO;
         } catch (ArgumentValidException e) {
             throw new ServiceException(e.getMessage(), e);
         }
-        return newsDTO;
     }
 
     @Override
@@ -50,20 +50,16 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
 
     @Override
     public Optional<NewsDTO> getNewsById(Long id) {
-        Optional<NewsDTO> newsDTO = Optional.empty();
         Optional<News> news = newsDAO.getEntityById(id);
-        if(news.isPresent()) {
-            newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(news.get()));
-        }
-        return newsDTO;
+        return Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(news.get()));
     }
 
     @Override
     public Optional<NewsDTO> updateNews(NewsDTO news) throws ServiceException{
         Optional<NewsDTO> newsDTO = Optional.empty();
         try {
-            if(StringValidator.isTitleValid(news.getTitle())
-                    && StringValidator.isContentValid(news.getContent())) {
+            if(Validator.isTitleValid(news.getTitle())
+                    && Validator.isContentValid(news.getContent())) {
                 Optional<News> updateNews = newsDAO.update(NewsMapper.INSTANCE.newsDTOtoNews(news));
                 if(updateNews.isPresent()) {
                     newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(updateNews.get()));
