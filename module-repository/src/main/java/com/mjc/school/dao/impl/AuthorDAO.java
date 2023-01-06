@@ -11,7 +11,7 @@ public class AuthorDAO extends AbstractDAO<Author> {
     public AuthorDAO() {}
     @Override
     protected List<Author> getList() {
-        return getSourceLoader().getAuthorList();
+        return super.dataSource.getAuthorList();
     }
 
     @Override

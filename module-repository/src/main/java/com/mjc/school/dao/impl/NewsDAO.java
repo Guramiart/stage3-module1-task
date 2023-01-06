@@ -14,14 +14,14 @@ public class NewsDAO extends AbstractDAO<News> {
 
     @Override
     protected List<News> getList() {
-        return getSourceLoader().getNewsList();
+        return super.dataSource.getNewsList();
     }
 
     @Override
     public Optional<News> create(News entity) {
         Optional<News> news = Optional.empty();
         if(isAuthorExist(entity.getAuthorId())) {
-            news = Optional.of(getSourceLoader().addNewsToList(entity));
+            news = Optional.of(super.dataSource.addNewsToList(entity));
         }
         return news;
     }
@@ -39,13 +39,13 @@ public class NewsDAO extends AbstractDAO<News> {
     @Override
     public boolean delete(Long id) {
         return getEntityById(id)
-                .filter(value -> getSourceLoader().removeNewsFromList(value))
+                .filter(super.dataSource::removeNewsFromList)
                 .isPresent();
     }
 
     private boolean isAuthorExist(Long id) {
         boolean isExist = false;
-        List<Author> authors = getSourceLoader().getAuthorList();
+        List<Author> authors = super.dataSource.getAuthorList();
         Optional<Author> author = authors.stream()
                 .filter((a) -> Objects.equals(a.getId(), id))
                 .findFirst();
