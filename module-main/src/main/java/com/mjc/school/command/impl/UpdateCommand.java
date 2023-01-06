@@ -23,11 +23,12 @@ public class UpdateCommand extends Command {
         String content = sc.nextLine();
         System.out.println(Constants.RESP_AUTHOR_ID);
         String authorId = sc.nextLine();
-        NewsDTO newsDTO = new NewsDTO();
-        newsDTO.setId(Long.parseLong(id));
-        newsDTO.setTitle(title);
-        newsDTO.setContent(content);
-        newsDTO.setAuthorId(Long.parseLong(authorId));
+        NewsDTO newsDTO = NewsDTO.getBuilder()
+                .setId(Long.parseLong(id))
+                .setTitle(title)
+                .setContent(content)
+                .setAuthorId(Long.parseLong(authorId))
+                .build();
         System.out.println(controller.update(newsDTO));
     }
 }
