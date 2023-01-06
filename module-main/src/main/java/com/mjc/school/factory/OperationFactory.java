@@ -1,4 +1,4 @@
-package com.mjc.school.menu;
+package com.mjc.school.factory;
 
 import com.mjc.school.command.Command;
 import com.mjc.school.command.impl.*;
@@ -67,7 +67,7 @@ public class OperationFactory {
     }
 
     public static Command getCommand(Scanner sc, Controller<NewsDTO> controller) {
-        int id = sc.nextInt();
+        int id = Integer.parseInt(sc.nextLine());
         if(id >= 0 && id <= 5) {
             return Arrays.stream(OperationKind.values())
                     .filter(e -> id == e.id)

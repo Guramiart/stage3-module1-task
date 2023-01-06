@@ -1,6 +1,7 @@
 package com.mjc.school.command.impl;
 
 import com.mjc.school.command.Command;
+import com.mjc.school.constants.Constants;
 import com.mjc.school.controller.Controller;
 import com.mjc.school.dto.NewsDTO;
 
@@ -14,6 +15,9 @@ public class DeleteCommand extends Command {
 
     @Override
     public void execute(Scanner sc) {
-        System.out.println("Delete Command");
+        System.out.println(Constants.OPERATION_DELETE);
+        System.out.println(Constants.RESP_NEWS_ID);
+        String line = sc.nextLine();
+        System.out.println(controller.delete(Long.parseLong(line)));
     }
 }
