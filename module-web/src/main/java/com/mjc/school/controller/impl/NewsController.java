@@ -1,39 +1,39 @@
 package com.mjc.school.controller.impl;
 
 import com.mjc.school.controller.Controller;
-import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDto;
 import com.mjc.school.service.exception.ServiceException;
 import com.mjc.school.service.interfaces.NewsService;
 import com.mjc.school.service.impl.NewsServiceImpl;
 
 import java.util.List;
 
-public class NewsController implements Controller<NewsDTO> {
+public class NewsController implements Controller<NewsDto> {
 
-    private final NewsService<NewsDTO> newsService = new NewsServiceImpl();
+    private final NewsService<NewsDto> newsService = new NewsServiceImpl();
 
     @Override
-    public List<NewsDTO> getAllNews() {
-        return newsService.getAllNews();
+    public List<NewsDto> readAllNews() {
+        return newsService.readAllNews();
     }
 
     @Override
-    public NewsDTO getNewsById(Long id) throws ServiceException {
-        return newsService.getNewsById(id);
+    public NewsDto readById(Long id) throws ServiceException {
+        return newsService.readById(id);
     }
 
     @Override
-    public NewsDTO create(NewsDTO entity) throws ServiceException {
+    public NewsDto create(NewsDto entity) throws ServiceException {
         return newsService.createNews(entity);
     }
 
     @Override
-    public NewsDTO update(NewsDTO entity) throws ServiceException {
+    public NewsDto update(NewsDto entity) throws ServiceException {
         return newsService.updateNews(entity);
     }
 
     @Override
-    public boolean delete(Long id) throws ServiceException {
+    public Boolean delete(Long id) throws ServiceException {
         return newsService.deleteNews(id);
     }
 }

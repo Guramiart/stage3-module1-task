@@ -1,6 +1,6 @@
 package com.mjc.school.repository.impl;
 
-import com.mjc.school.repository.dao.GenericDAO;
+import com.mjc.school.repository.interfaces.Repository;
 import com.mjc.school.repository.entity.NewsModel;
 import com.mjc.school.repository.source.DataSource;
 
@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-public class NewsDAO implements GenericDAO<NewsModel> {
+public class NewsRepository implements Repository<NewsModel> {
 
     private final DataSource dataSource;
 
-    public NewsDAO() {
+    public NewsRepository() {
         this.dataSource = DataSource.getInstance();
     }
 
