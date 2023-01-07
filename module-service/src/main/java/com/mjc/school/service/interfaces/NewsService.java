@@ -8,13 +8,13 @@ import java.util.Optional;
 
 public interface NewsService<T extends NewsDTO> {
 
-    Optional<T> createNews(T entity) throws ServiceException;
+    T createNews(T entity) throws ServiceException;
 
     List<T> getAllNews();
 
-    Optional<T> getNewsById(Long id) throws ServiceException;
+    T getNewsById(Long id) throws ServiceException;
 
-    Optional<T> updateNews(T entity) throws ServiceException;
+    T updateNews(T entity) throws ServiceException;
 
     boolean deleteNews(Long id) throws ServiceException;
 
