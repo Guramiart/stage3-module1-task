@@ -70,8 +70,4 @@ public class DataSource {
         return newsModelList.remove(entity);
     }
 
-    public List<AuthorModel> getAuthorList() {
-        return authorModelList;
-    }
-
 }
