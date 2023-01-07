@@ -1,14 +1,14 @@
 package com.mjc.school.repository.entity;
 
-public class Author extends Entity {
+public class AuthorModel extends Entity {
 
     private String name;
 
-    public Author() {
+    public AuthorModel() {
         super(0L);
     }
 
-    public Author(Long id, String name) {
+    public AuthorModel(Long id, String name) {
         super(id);
         this.name = name;
     }
@@ -27,18 +27,18 @@ public class Author extends Entity {
 
     public static class AuthorBuilder {
 
-        private final Author author = new Author();
+        private final AuthorModel authorModel = new AuthorModel();
 
         public AuthorBuilder setId(Long id) {
-            author.setId(id);
+            authorModel.setId(id);
             return this;
         }
         public AuthorBuilder setName(String name) {
-            author.name = name;
+            authorModel.name = name;
             return this;
         }
-        public Author build() {
-            return author;
+        public AuthorModel build() {
+            return authorModel;
         }
     }
 }

@@ -1,10 +1,10 @@
 package com.mjc.school.service.impl;
 
+import com.mjc.school.repository.dao.GenericDAO;
+import com.mjc.school.repository.entity.NewsModel;
 import com.mjc.school.service.constants.ServiceConstants;
-import com.mjc.school.repository.dao.AbstractDAO;
 import com.mjc.school.repository.impl.NewsDAO;
 import com.mjc.school.service.dto.NewsDTO;
-import com.mjc.school.repository.entity.News;
 import com.mjc.school.service.exception.ArgumentValidException;
 import com.mjc.school.service.exception.ErrorCode;
 import com.mjc.school.service.exception.NotFoundException;
@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public class NewsServiceImpl implements NewsService<NewsDTO> {
 
-    private final AbstractDAO<News> newsDAO;
+    private final GenericDAO<NewsModel> newsDAO;
 
     public NewsServiceImpl() {
         newsDAO = new NewsDAO();
@@ -28,7 +28,7 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
     @Override
     public List<NewsDTO> getAllNews() {
         List<NewsDTO> news = new ArrayList<>();
-        for(News elem : newsDAO.getAll()) {
+        for(NewsModel elem : newsDAO.readAll()) {
             news.add(NewsMapper.INSTANCE.newsToNewsDTO(elem));
         }
         return news;
@@ -39,7 +39,7 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
         Optional<NewsDTO> newsDTO = Optional.empty();
         try {
             NewsValidator.getInstance().validateDTO(news);
-            Optional<News> optionalNews = newsDAO.create(NewsMapper.INSTANCE.newsDTOtoNews(news));
+            Optional<NewsModel> optionalNews = newsDAO.create(NewsMapper.INSTANCE.newsDTOtoNews(news));
             if(optionalNews.isPresent()) {
                 newsDTO = Optional.of(NewsMapper.INSTANCE.newsToNewsDTO(optionalNews.get()));
             }
@@ -51,7 +51,7 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
 
     @Override
     public Optional<NewsDTO> getNewsById(Long id) throws ServiceException {
-        Optional<News> news = newsDAO.getEntityById(id);
+        Optional<NewsModel> news = newsDAO.readById(id);
         try {
             NewsValidator.getInstance().validateNewsId(id);
             if(news.isEmpty()) {
@@ -69,7 +69,7 @@ public class NewsServiceImpl implements NewsService<NewsDTO> {
         try {
             NewsValidator.getInstance().validateDTO(news);
             NewsValidator.getInstance().validateNewsId(news.getId());
-            Optional<News> updateNews = newsDAO.update(NewsMapper.INSTANCE.newsDTOtoNews(news));
+            Optional<NewsModel> updateNews = newsDAO.update(NewsMapper.INSTANCE.newsDTOtoNews(news));
             if(updateNews.isEmpty()) {
                 throw new ServiceException(String.format(
                         ErrorCode.NOT_EXIST.getErrorMessage(), ServiceConstants.NEWS_PARAM, news.getId()));
