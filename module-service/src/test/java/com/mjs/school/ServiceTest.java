@@ -2,8 +2,8 @@ package com.mjs.school;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import com.mjc.school.repository.entity.NewsModel;
 import com.mjc.school.service.dto.NewsDTO;
-import com.mjc.school.repository.entity.News;
 import com.mjc.school.service.exception.ServiceException;
 import com.mjc.school.service.mapper.NewsMapper;
 import com.mjc.school.service.interfaces.NewsService;
@@ -15,12 +15,12 @@ import java.util.List;
 class ServiceTest {
 
     private final NewsService<NewsDTO> newsService = new NewsServiceImpl();
-    private final News newsWithoutId = News.getBuilder()
+    private final NewsModel newsModelWithoutId = NewsModel.getBuilder()
             .setTitle("Test-title")
             .setContent("Test-content")
             .setAuthorId(1L)
             .build();
-    private final News newsWithId = News.getBuilder()
+    private final NewsModel newsModelWithId = NewsModel.getBuilder()
             .setId(5L)
             .setTitle("TestTitle")
             .setContent("SetContent")
@@ -29,32 +29,32 @@ class ServiceTest {
 
     @Test
     void mapToNewsDTO() {
-        NewsDTO newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(newsWithoutId);
+        NewsDTO newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId);
 
         assertNotNull(newsDTO);
-        assertEquals(newsDTO.getId(), newsWithoutId.getId());
-        assertEquals(newsDTO.getTitle(), newsWithoutId.getTitle());
-        assertEquals(newsDTO.getContent(), newsWithoutId.getContent());
-        assertEquals(newsDTO.getCreateDate(), newsWithoutId.getCreateDate());
-        assertEquals(newsDTO.getAuthorId(), newsWithoutId.getAuthorId());
+        assertEquals(newsDTO.getId(), newsModelWithoutId.getId());
+        assertEquals(newsDTO.getTitle(), newsModelWithoutId.getTitle());
+        assertEquals(newsDTO.getContent(), newsModelWithoutId.getContent());
+        assertEquals(newsDTO.getCreateDate(), newsModelWithoutId.getCreateDate());
+        assertEquals(newsDTO.getAuthorId(), newsModelWithoutId.getAuthorId());
     }
 
     @Test
     void createNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsWithoutId)).get();
+        NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId)).get();
 
-        assertEquals(newsWithoutId.getTitle(), newsDTO.getTitle());
-        assertEquals(newsWithoutId.getContent(), newsDTO.getContent());
-        assertEquals(newsWithoutId.getAuthorId(), newsDTO.getAuthorId());
+        assertEquals(newsModelWithoutId.getTitle(), newsDTO.getTitle());
+        assertEquals(newsModelWithoutId.getContent(), newsDTO.getContent());
+        assertEquals(newsModelWithoutId.getAuthorId(), newsDTO.getAuthorId());
     }
 
     @Test
     void updateNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsWithId)).get();
+        NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithId)).get();
 
-        assertEquals(newsWithId.getTitle(), newsDTO.getTitle());
-        assertEquals(newsWithId.getContent(), newsDTO.getContent());
-        assertEquals(newsWithId.getAuthorId(), newsDTO.getAuthorId());
+        assertEquals(newsModelWithId.getTitle(), newsDTO.getTitle());
+        assertEquals(newsModelWithId.getContent(), newsDTO.getContent());
+        assertEquals(newsModelWithId.getAuthorId(), newsDTO.getAuthorId());
     }
 
     @Test

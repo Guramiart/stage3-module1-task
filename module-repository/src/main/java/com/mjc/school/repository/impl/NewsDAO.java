@@ -1,32 +1,45 @@
 package com.mjc.school.repository.impl;
 
-import com.mjc.school.repository.dao.AbstractDAO;
-import com.mjc.school.repository.entity.News;
+import com.mjc.school.repository.dao.GenericDAO;
+import com.mjc.school.repository.entity.NewsModel;
+import com.mjc.school.repository.source.DataSource;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
-public class NewsDAO extends AbstractDAO<News> {
+public class NewsDAO implements GenericDAO<NewsModel> {
 
-    public NewsDAO() {}
+    private final DataSource dataSource;
 
-    @Override
-    protected List<News> getList() {
-        return super.dataSource.getNewsList();
+    public NewsDAO() {
+        this.dataSource = DataSource.getInstance();
     }
 
     @Override
-    public Optional<News> create(News entity) {
+    public List<NewsModel> readAll() {
+        return dataSource.getNewsList();
+    }
+
+    @Override
+    public Optional<NewsModel> readById(Long id) {
+        return dataSource.getNewsList().stream()
+                .filter(el -> Objects.equals(el.getId(), id))
+                .findFirst();
+    }
+
+    @Override
+    public Optional<NewsModel> create(NewsModel entity) {
         entity.setCreateDate(LocalDateTime.now());
         entity.setLastUpdateDate(LocalDateTime.now());
-        return Optional.of(super.dataSource.addNewsToList(entity));
+        return Optional.of(dataSource.addNewsToList(entity));
     }
 
     @Override
-    public Optional<News> update(News entity) {
-        Optional<News> news = Optional.empty();
-        Optional<News> sourceNews = getEntityById(entity.getId());
+    public Optional<NewsModel> update(NewsModel entity) {
+        Optional<NewsModel> news = Optional.empty();
+        Optional<NewsModel> sourceNews = readById(entity.getId());
         if(sourceNews.isPresent()) {
             news = Optional.ofNullable(sourceNews.get().updateNews(entity));
         }
@@ -34,9 +47,9 @@ public class NewsDAO extends AbstractDAO<News> {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return getEntityById(id)
-                .filter(super.dataSource::removeNewsFromList)
+    public Boolean delete(Long id) {
+        return readById(id)
+                .filter(dataSource::removeNewsFromList)
                 .isPresent();
     }
 
