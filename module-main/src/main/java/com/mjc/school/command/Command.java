@@ -1,13 +1,11 @@
 package com.mjc.school.command;
 
-import com.mjc.school.constants.Constants;
 import com.mjc.school.controller.Controller;
-import com.mjc.school.dto.NewsDTO;
-import com.mjc.school.exception.ArgumentValidException;
-import com.mjc.school.exception.ErrorCode;
+import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.exception.ArgumentValidException;
+import com.mjc.school.service.exception.ErrorCode;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public abstract class Command {
