@@ -1,8 +1,8 @@
 package com.mjc.school.repository.source;
 
 import com.mjc.school.repository.constants.RepoConstants;
-import com.mjc.school.repository.entity.Author;
-import com.mjc.school.repository.entity.News;
+import com.mjc.school.repository.entity.AuthorModel;
+import com.mjc.school.repository.entity.NewsModel;
 import com.mjc.school.repository.util.Utils;
 
 import java.time.LocalDateTime;
@@ -13,65 +13,65 @@ import java.util.Random;
 public class DataSource {
 
     private static DataSource instance;
-    private final List<News> newsList;
-    private final List<Author> authorList;
+    private final List<NewsModel> newsModelList;
+    private final List<AuthorModel> authorModelList;
 
-    private DataSource(List<Author> authorList) {
-        this.authorList = authorList;
-        newsList = initNewsList();
+    private DataSource(List<AuthorModel> authorModelList) {
+        this.authorModelList = authorModelList;
+        newsModelList = initNewsList();
     }
 
     public static DataSource getInstance() {
         if(instance == null) {
-            List<Author> authorList = initAuthorList();
-            instance = new DataSource(authorList);
+            List<AuthorModel> authorModelList = initAuthorList();
+            instance = new DataSource(authorModelList);
         }
         return instance;
     }
 
-    private static List<Author> initAuthorList() {
-        List<Author> authors = new ArrayList<>();
+    private static List<AuthorModel> initAuthorList() {
+        List<AuthorModel> authorModels = new ArrayList<>();
         for(long i = 1; i <= RepoConstants.NEWS_LIMIT; ++i) {
-            authors.add(Author.getBuilder()
+            authorModels.add(AuthorModel.getBuilder()
                     .setId(i)
                     .setName(Utils.getRandomData(RepoConstants.AUTHOR_SOURCE))
                     .build());
         }
-        return authors;
+        return authorModels;
     }
 
-    private List<News> initNewsList() {
-        List<News> news = new ArrayList<>();
+    private List<NewsModel> initNewsList() {
+        List<NewsModel> newsModels = new ArrayList<>();
         for(long i = 1; i <= RepoConstants.NEWS_LIMIT; ++i) {
             LocalDateTime date = Utils.getRandomDate();
-            news.add(News.getBuilder()
+            newsModels.add(NewsModel.getBuilder()
                     .setId(i)
                     .setTitle(Utils.getRandomData(RepoConstants.NEWS_SOURCE))
                     .setContent(Utils.getRandomData(RepoConstants.CONTENT_SOURCE))
                     .setCreateDate(date)
                     .setLastUpdateDate(date)
-                    .setAuthorId(authorList.get(new Random().nextInt(authorList.size())).getId())
+                    .setAuthorId(authorModelList.get(new Random().nextInt(authorModelList.size())).getId())
                     .build());
         }
-        return news;
+        return newsModels;
     }
 
-    public List<News> getNewsList() {
-        return newsList;
+    public List<NewsModel> getNewsList() {
+        return newsModelList;
     }
 
-    public News addNewsToList(News entity) {
-        entity.setId(newsList.size() + 1L);
-        newsList.add(entity);
+    public NewsModel addNewsToList(NewsModel entity) {
+        entity.setId(newsModelList.size() + 1L);
+        newsModelList.add(entity);
         return entity;
     }
 
-    public boolean removeNewsFromList(News entity) {
-        return newsList.remove(entity);
+    public boolean removeNewsFromList(NewsModel entity) {
+        return newsModelList.remove(entity);
     }
 
-    public List<Author> getAuthorList() {
-        return authorList;
+    public List<AuthorModel> getAuthorList() {
+        return authorModelList;
     }
 
 }

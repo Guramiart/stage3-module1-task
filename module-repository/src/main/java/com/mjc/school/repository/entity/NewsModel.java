@@ -3,7 +3,7 @@ package com.mjc.school.repository.entity;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class News extends Entity {
+public class NewsModel extends Entity {
 
     private String title;
     private String content;
@@ -11,7 +11,7 @@ public class News extends Entity {
     private LocalDateTime lastUpdateDate;
     private Long authorId;
 
-    public News() {
+    public NewsModel() {
         super(0L);
         createDate = LocalDateTime.now();
         lastUpdateDate = LocalDateTime.now();
@@ -61,12 +61,12 @@ public class News extends Entity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        News news = (News) o;
-        return Objects.equals(title, news.title)
-                && Objects.equals(content, news.content)
-                && Objects.equals(createDate, news.createDate)
-                && Objects.equals(lastUpdateDate, news.lastUpdateDate)
-                && Objects.equals(authorId, news.authorId);
+        NewsModel newsModel = (NewsModel) o;
+        return Objects.equals(title, newsModel.title)
+                && Objects.equals(content, newsModel.content)
+                && Objects.equals(createDate, newsModel.createDate)
+                && Objects.equals(lastUpdateDate, newsModel.lastUpdateDate)
+                && Objects.equals(authorId, newsModel.authorId);
     }
 
     @Override
@@ -74,10 +74,10 @@ public class News extends Entity {
         return Objects.hash(title, content, createDate, lastUpdateDate, authorId);
     }
 
-    public News updateNews(News news) {
-        setTitle(news.title);
-        setContent(news.content);
-        setAuthorId(news.authorId);
+    public NewsModel updateNews(NewsModel newsModel) {
+        setTitle(newsModel.title);
+        setContent(newsModel.content);
+        setAuthorId(newsModel.authorId);
         lastUpdateDate = LocalDateTime.now();
         return this;
     }
@@ -88,40 +88,40 @@ public class News extends Entity {
 
     public static class NewsBuilder {
 
-        private final News news = new News();
+        private final NewsModel newsModel = new NewsModel();
 
         public NewsBuilder setId(Long id){
-            news.setId(id);
+            newsModel.setId(id);
             return this;
         }
 
         public NewsBuilder setTitle(String title) {
-            news.title = title;
+            newsModel.title = title;
             return this;
         }
 
         public NewsBuilder setContent(String content) {
-            news.content = content;
+            newsModel.content = content;
             return this;
         }
 
         public NewsBuilder setCreateDate(LocalDateTime createDate) {
-            news.createDate = createDate;
+            newsModel.createDate = createDate;
             return this;
         }
 
         public NewsBuilder setLastUpdateDate(LocalDateTime lastUpdateDate) {
-            news.lastUpdateDate = lastUpdateDate;
+            newsModel.lastUpdateDate = lastUpdateDate;
             return this;
         }
 
         public NewsBuilder setAuthorId(Long authorId) {
-            news.authorId = authorId;
+            newsModel.authorId = authorId;
             return this;
         }
 
-        public News build() {
-            return news;
+        public NewsModel build() {
+            return newsModel;
         }
     }
 }
