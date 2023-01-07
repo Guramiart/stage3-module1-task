@@ -4,6 +4,7 @@ import com.mjc.school.dao.AbstractDAO;
 import com.mjc.school.entity.Author;
 import com.mjc.school.entity.News;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,18 +20,16 @@ public class NewsDAO extends AbstractDAO<News> {
 
     @Override
     public Optional<News> create(News entity) {
-        Optional<News> news = Optional.empty();
-        if(isAuthorExist(entity.getAuthorId())) {
-            news = Optional.of(super.dataSource.addNewsToList(entity));
-        }
-        return news;
+        entity.setCreateDate(LocalDateTime.now());
+        entity.setLastUpdateDate(LocalDateTime.now());
+        return Optional.of(super.dataSource.addNewsToList(entity));
     }
 
     @Override
     public Optional<News> update(News entity) {
         Optional<News> news = Optional.empty();
         Optional<News> sourceNews = getEntityById(entity.getId());
-        if(sourceNews.isPresent() && isAuthorExist(entity.getAuthorId())) {
+        if(sourceNews.isPresent()) {
             news = Optional.ofNullable(sourceNews.get().updateNews(entity));
         }
         return news;
@@ -41,18 +40,6 @@ public class NewsDAO extends AbstractDAO<News> {
         return getEntityById(id)
                 .filter(super.dataSource::removeNewsFromList)
                 .isPresent();
-    }
-
-    private boolean isAuthorExist(Long id) {
-        boolean isExist = false;
-        List<Author> authors = super.dataSource.getAuthorList();
-        Optional<Author> author = authors.stream()
-                .filter((a) -> Objects.equals(a.getId(), id))
-                .findFirst();
-        if(author.isPresent()) {
-            isExist = true;
-        }
-        return isExist;
     }
 
 }

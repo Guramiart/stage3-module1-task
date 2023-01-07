@@ -1,6 +1,6 @@
 package com.mjc.school.source;
 
-import com.mjc.school.constants.Constants;
+import com.mjc.school.constants.RepoConstants;
 import com.mjc.school.entity.Author;
 import com.mjc.school.entity.News;
 import com.mjc.school.util.Utils;
@@ -31,10 +31,10 @@ public class DataSource {
 
     private static List<Author> initAuthorList() {
         List<Author> authors = new ArrayList<>();
-        for(long i = 1; i <= Constants.NEWS_LIMIT; ++i) {
+        for(long i = 1; i <= RepoConstants.NEWS_LIMIT; ++i) {
             authors.add(Author.getBuilder()
                     .setId(i)
-                    .setName(Utils.getRandomData(Constants.AUTHOR_SOURCE))
+                    .setName(Utils.getRandomData(RepoConstants.AUTHOR_SOURCE))
                     .build());
         }
         return authors;
@@ -42,12 +42,12 @@ public class DataSource {
 
     private List<News> initNewsList() {
         List<News> news = new ArrayList<>();
-        for(long i = 1; i <= Constants.NEWS_LIMIT; ++i) {
+        for(long i = 1; i <= RepoConstants.NEWS_LIMIT; ++i) {
             LocalDateTime date = Utils.getRandomDate();
             news.add(News.getBuilder()
                     .setId(i)
-                    .setTitle(Utils.getRandomData(Constants.NEWS_SOURCE))
-                    .setContent(Utils.getRandomData(Constants.CONTENT_SOURCE))
+                    .setTitle(Utils.getRandomData(RepoConstants.NEWS_SOURCE))
+                    .setContent(Utils.getRandomData(RepoConstants.CONTENT_SOURCE))
                     .setCreateDate(date)
                     .setLastUpdateDate(date)
                     .setAuthorId(authorList.get(new Random().nextInt(authorList.size())).getId())

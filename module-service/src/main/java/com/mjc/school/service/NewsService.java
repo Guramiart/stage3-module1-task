@@ -13,10 +13,10 @@ public interface NewsService<T extends NewsDTO> {
 
     List<T> getAllNews();
 
-    Optional<T> getNewsById(Long id);
+    Optional<T> getNewsById(Long id) throws ServiceException;
 
     Optional<T> updateNews(T entity) throws ServiceException;
 
-    boolean deleteNews(Long id);
+    boolean deleteNews(Long id) throws ServiceException;
 
 }

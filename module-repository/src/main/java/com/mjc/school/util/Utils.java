@@ -1,6 +1,6 @@
 package com.mjc.school.util;
 
-import com.mjc.school.constants.Constants;
+import com.mjc.school.constants.RepoConstants;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class Utils {
                         Thread.currentThread().getContextClassLoader().getResourceAsStream(filename)))
         )) {
             int counter = 0;
-            int randomLineNum = new Random().nextInt(Constants.LINE_LIMIT);
+            int randomLineNum = new Random().nextInt(RepoConstants.LINE_LIMIT);
             while ((randomData = bufferedReader.readLine()) != null && counter != randomLineNum) {
                 counter++;
             }
@@ -34,11 +34,11 @@ public class Utils {
 
     public static LocalDateTime getRandomDate() {
         Random random = new Random();
-        LocalDate day = LocalDate.now().minusDays(random.nextInt(Constants.DAY_SHIFT));
+        LocalDate day = LocalDate.now().minusDays(random.nextInt(RepoConstants.DAY_SHIFT));
         LocalTime time = LocalTime.of(
-                random.nextInt(Constants.HOUR_LIMIT),
-                random.nextInt(Constants.MINUTE_LIMIT),
-                random.nextInt(Constants.SECOND_LIMIT));
+                random.nextInt(RepoConstants.HOUR_LIMIT),
+                random.nextInt(RepoConstants.MINUTE_LIMIT),
+                random.nextInt(RepoConstants.SECOND_LIMIT));
         return LocalDateTime.of(day, time);
     }
 }

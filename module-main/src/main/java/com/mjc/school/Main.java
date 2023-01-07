@@ -1,13 +1,13 @@
 package com.mjc.school;
 
 import com.mjc.school.controller.impl.NewsController;
-import com.mjc.school.menu.Menu;
+import com.mjc.school.menu.NewsManager;
 
 public class Main {
 
     public static void main(String[] args) {
-        Menu menu = new Menu(new NewsController());
-        menu.run();
+        NewsManager newsManager = new NewsManager(new NewsController());
+        newsManager.run();
     }
 
 }

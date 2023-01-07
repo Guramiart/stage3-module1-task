@@ -58,7 +58,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void deleteNews() {
+    public void deleteNews() throws ServiceException {
         List<NewsDTO> beforeDelete = newsService.getAllNews();
         newsService.deleteNews(10L);
         List<NewsDTO> afterDelete = newsService.getAllNews();

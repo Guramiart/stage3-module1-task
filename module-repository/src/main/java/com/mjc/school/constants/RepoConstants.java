@@ -1,8 +1,8 @@
 package com.mjc.school.constants;
 
-public class Constants {
+public class RepoConstants {
 
-    private Constants() {}
+    private RepoConstants() {}
 
     public static final String AUTHOR_SOURCE = "authors";
     public static final String NEWS_SOURCE = "news";

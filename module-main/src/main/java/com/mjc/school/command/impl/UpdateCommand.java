@@ -4,6 +4,7 @@ import com.mjc.school.command.Command;
 import com.mjc.school.constants.Constants;
 import com.mjc.school.controller.Controller;
 import com.mjc.school.dto.NewsDTO;
+import com.mjc.school.exception.ServiceException;
 
 import java.util.Scanner;
 
@@ -14,21 +15,29 @@ public class UpdateCommand extends Command {
     }
     @Override
     public void execute(Scanner sc) {
-        System.out.println(Constants.OPERATION_UPDATE);
-        System.out.println(Constants.RESP_NEWS_ID);
-        String id = sc.nextLine();
-        System.out.println(Constants.RESP_TITLE);
-        String title = sc.nextLine();
-        System.out.println(Constants.RESP_CONTENT);
-        String content = sc.nextLine();
-        System.out.println(Constants.RESP_AUTHOR_ID);
-        String authorId = sc.nextLine();
-        NewsDTO newsDTO = NewsDTO.getBuilder()
-                .setId(Long.parseLong(id))
-                .setTitle(title)
-                .setContent(content)
-                .setAuthorId(Long.parseLong(authorId))
-                .build();
-        System.out.println(controller.update(newsDTO));
+        boolean isValid = false;
+        while(!isValid) {
+            try {
+                System.out.println(Constants.OPERATION_UPDATE);
+                System.out.println(Constants.RESP_NEWS_ID);
+                Long newsId = getNumberFromScanner("News", sc);
+                System.out.println(Constants.RESP_TITLE);
+                String title = sc.nextLine();
+                System.out.println(Constants.RESP_CONTENT);
+                String content = sc.nextLine();
+                System.out.println(Constants.RESP_AUTHOR_ID);
+                Long authorId = getNumberFromScanner("Author", sc);
+                NewsDTO newsDTO = NewsDTO.getBuilder()
+                        .setId(newsId)
+                        .setTitle(title)
+                        .setContent(content)
+                        .setAuthorId(authorId)
+                        .build();
+                System.out.println(controller.update(newsDTO));
+                isValid = true;
+            } catch (ServiceException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
