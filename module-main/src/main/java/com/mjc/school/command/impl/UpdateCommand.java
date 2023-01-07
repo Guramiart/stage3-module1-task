@@ -3,14 +3,14 @@ package com.mjc.school.command.impl;
 import com.mjc.school.command.Command;
 import com.mjc.school.constants.Constants;
 import com.mjc.school.controller.Controller;
-import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDto;
 import com.mjc.school.service.exception.ServiceException;
 
 import java.util.Scanner;
 
 public class UpdateCommand extends Command {
 
-    public UpdateCommand(Controller<NewsDTO> controller) {
+    public UpdateCommand(Controller<NewsDto> controller) {
         super(controller);
     }
     @Override
@@ -27,7 +27,7 @@ public class UpdateCommand extends Command {
                 String content = sc.nextLine();
                 System.out.println(Constants.RESP_AUTHOR_ID);
                 Long authorId = getNumberFromScanner("Author", sc);
-                NewsDTO newsDTO = NewsDTO.getBuilder()
+                NewsDto newsDTO = NewsDto.getBuilder()
                         .setId(newsId)
                         .setTitle(title)
                         .setContent(content)

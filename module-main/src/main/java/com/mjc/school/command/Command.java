@@ -1,7 +1,7 @@
 package com.mjc.school.command;
 
 import com.mjc.school.controller.Controller;
-import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDto;
 import com.mjc.school.service.exception.ArgumentValidException;
 import com.mjc.school.service.exception.ErrorCode;
 
@@ -10,9 +10,9 @@ import java.util.Scanner;
 
 public abstract class Command {
 
-    protected final Controller<NewsDTO> controller;
+    protected final Controller<NewsDto> controller;
 
-    protected Command(Controller<NewsDTO> controller) {
+    protected Command(Controller<NewsDto> controller) {
         this.controller = controller;
     }
     public abstract void execute(Scanner sc);
