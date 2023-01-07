@@ -41,7 +41,7 @@ class ServiceTest {
 
     @Test
     void createNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId)).get();
+        NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId));
 
         assertEquals(newsModelWithoutId.getTitle(), newsDTO.getTitle());
         assertEquals(newsModelWithoutId.getContent(), newsDTO.getContent());
@@ -50,7 +50,7 @@ class ServiceTest {
 
     @Test
     void updateNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithId)).get();
+        NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithId));
 
         assertEquals(newsModelWithId.getTitle(), newsDTO.getTitle());
         assertEquals(newsModelWithId.getContent(), newsDTO.getContent());

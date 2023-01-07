@@ -19,17 +19,17 @@ public class NewsController implements Controller<NewsDTO> {
 
     @Override
     public NewsDTO getNewsById(Long id) throws ServiceException {
-        return newsService.getNewsById(id).get();
+        return newsService.getNewsById(id);
     }
 
     @Override
     public NewsDTO create(NewsDTO entity) throws ServiceException {
-        return newsService.createNews(entity).get();
+        return newsService.createNews(entity);
     }
 
     @Override
     public NewsDTO update(NewsDTO entity) throws ServiceException {
-        return newsService.updateNews(entity).get();
+        return newsService.updateNews(entity);
     }
 
     @Override
