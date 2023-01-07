@@ -1,7 +1,7 @@
 package com.mjc.school.service.utils;
 
 import com.mjc.school.service.constants.ServiceConstants;
-import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDto;
 import com.mjc.school.service.exception.ArgumentValidException;
 import com.mjc.school.service.exception.ErrorCode;
 import com.mjc.school.service.exception.NotFoundException;
@@ -19,7 +19,7 @@ public class NewsValidator {
         return instance;
     }
 
-    public void validateDTO(NewsDTO newsDTO) throws ArgumentValidException, NotFoundException {
+    public void validateDTO(NewsDto newsDTO) throws ArgumentValidException, NotFoundException {
         this.validateString(newsDTO.getTitle(),
                 ServiceConstants.TITLE_PARAM, ServiceConstants.MIN_TITLE_LENGTH, ServiceConstants.MAX_TITLE_LENGTH);
         this.validateString(newsDTO.getContent(),

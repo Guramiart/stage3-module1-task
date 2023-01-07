@@ -1,8 +1,8 @@
-package com.mjc.school.repository.dao;
+package com.mjc.school.repository.interfaces;
 
 import java.util.List;
 
-public interface GenericDAO<T> {
+public interface Repository<T> {
 
     T create(T entity);
     List<T> readAll();

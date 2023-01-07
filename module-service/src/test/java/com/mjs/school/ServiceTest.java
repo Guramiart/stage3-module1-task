@@ -3,7 +3,7 @@ package com.mjs.school;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.mjc.school.repository.entity.NewsModel;
-import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDto;
 import com.mjc.school.service.exception.ServiceException;
 import com.mjc.school.service.mapper.NewsMapper;
 import com.mjc.school.service.interfaces.NewsService;
@@ -14,7 +14,7 @@ import java.util.List;
 
 class ServiceTest {
 
-    private final NewsService<NewsDTO> newsService = new NewsServiceImpl();
+    private final NewsService<NewsDto> newsService = new NewsServiceImpl();
     private final NewsModel newsModelWithoutId = NewsModel.getBuilder()
             .setTitle("Test-title")
             .setContent("Test-content")
@@ -29,7 +29,7 @@ class ServiceTest {
 
     @Test
     void mapToNewsDTO() {
-        NewsDTO newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId);
+        NewsDto newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId);
 
         assertNotNull(newsDTO);
         assertEquals(newsDTO.getId(), newsModelWithoutId.getId());
@@ -41,7 +41,7 @@ class ServiceTest {
 
     @Test
     void createNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId));
+        NewsDto newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithoutId));
 
         assertEquals(newsModelWithoutId.getTitle(), newsDTO.getTitle());
         assertEquals(newsModelWithoutId.getContent(), newsDTO.getContent());
@@ -50,7 +50,7 @@ class ServiceTest {
 
     @Test
     void updateNews() throws ServiceException {
-        NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithId));
+        NewsDto newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsModelWithId));
 
         assertEquals(newsModelWithId.getTitle(), newsDTO.getTitle());
         assertEquals(newsModelWithId.getContent(), newsDTO.getContent());
@@ -59,18 +59,18 @@ class ServiceTest {
 
     @Test
     void deleteNews() throws ServiceException {
-        List<NewsDTO> beforeDelete = newsService.getAllNews();
+        List<NewsDto> beforeDelete = newsService.readAllNews();
         newsService.deleteNews(10L);
-        List<NewsDTO> afterDelete = newsService.getAllNews();
+        List<NewsDto> afterDelete = newsService.readAllNews();
         assertNotEquals(beforeDelete.size(), afterDelete.size());
     }
 
     @Test
     void validationTest() {
-        NewsDTO invalidTitle = new NewsDTO();
+        NewsDto invalidTitle = new NewsDto();
         invalidTitle.setTitle("T");
         invalidTitle.setContent("Content");
-        NewsDTO invalidContent = new NewsDTO();
+        NewsDto invalidContent = new NewsDto();
         invalidContent.setTitle("TestTitle");
         invalidContent.setContent("C");
         assertThrows(ServiceException.class, () -> newsService.createNews(invalidTitle));

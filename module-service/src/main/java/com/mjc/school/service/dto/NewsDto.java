@@ -3,7 +3,7 @@ package com.mjc.school.service.dto;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class NewsDTO {
+public class NewsDto {
 
     private Long id;
     private String title;
@@ -12,7 +12,7 @@ public class NewsDTO {
     private LocalDateTime lastUpdateDate;
     private Long authorId;
 
-    public NewsDTO() {}
+    public NewsDto() {}
 
     public Long getId() {
         return id;
@@ -66,7 +66,7 @@ public class NewsDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        NewsDTO news = (NewsDTO) o;
+        NewsDto news = (NewsDto) o;
         return Objects.equals(title, news.title)
                 && Objects.equals(content, news.content)
                 && Objects.equals(createDate, news.createDate)
@@ -86,7 +86,7 @@ public class NewsDTO {
 
     public static class NewsDTOBuilder {
 
-        private final NewsDTO newsDTO = new NewsDTO();
+        private final NewsDto newsDTO = new NewsDto();
 
         public NewsDTOBuilder setId(Long id) {
             newsDTO.id = id;
@@ -118,7 +118,7 @@ public class NewsDTO {
             return this;
         }
 
-        public NewsDTO build() {
+        public NewsDto build() {
             return newsDTO;
         }
 

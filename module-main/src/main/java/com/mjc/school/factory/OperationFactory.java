@@ -3,7 +3,7 @@ package com.mjc.school.factory;
 import com.mjc.school.command.Command;
 import com.mjc.school.command.impl.*;
 import com.mjc.school.controller.Controller;
-import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,37 +15,37 @@ public class OperationFactory {
     private enum OperationKind {
         GET_ALL(1, "Get all news") {
             @Override
-            Command getCommand(Controller<NewsDTO> controller) {
+            Command getCommand(Controller<NewsDto> controller) {
                 return new GetAllCommand(controller);
             }
         },
         GET_BY_ID(2, "Get news by id") {
             @Override
-            Command getCommand(Controller<NewsDTO> controller) {
+            Command getCommand(Controller<NewsDto> controller) {
                 return new GetByIdCommand(controller);
             }
         },
         CREATE(3, "Create news") {
             @Override
-            Command getCommand(Controller<NewsDTO> controller) {
+            Command getCommand(Controller<NewsDto> controller) {
                 return new CreateCommand(controller);
             }
         },
         UPDATE(4, "Update news") {
             @Override
-            Command getCommand(Controller<NewsDTO> controller) {
+            Command getCommand(Controller<NewsDto> controller) {
                 return new UpdateCommand(controller);
             }
         },
         DELETE(5, "Delete news") {
             @Override
-            Command getCommand(Controller<NewsDTO> controller) {
+            Command getCommand(Controller<NewsDto> controller) {
                 return new DeleteCommand(controller);
             }
         },
         EXIT(0, "Exit") {
             @Override
-            Command getCommand(Controller<NewsDTO> controller) {
+            Command getCommand(Controller<NewsDto> controller) {
                 return new ExitCommand(controller);
             }
         };
@@ -62,10 +62,10 @@ public class OperationFactory {
             return id + " - " + name;
         }
 
-        abstract Command getCommand(Controller<NewsDTO> controller);
+        abstract Command getCommand(Controller<NewsDto> controller);
     }
 
-    public static Command getCommand(Scanner sc, Controller<NewsDTO> controller) {
+    public static Command getCommand(Scanner sc, Controller<NewsDto> controller) {
         int id = Integer.parseInt(sc.nextLine());
         if(id >= 0 && id <= 5) {
             return Arrays.stream(OperationKind.values())
