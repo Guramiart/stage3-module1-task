@@ -2,17 +2,17 @@ package com.mjs.school;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.mjc.school.dto.NewsDTO;
-import com.mjc.school.entity.News;
-import com.mjc.school.exception.ServiceException;
-import com.mjc.school.mapper.NewsMapper;
-import com.mjc.school.service.NewsService;
+import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.repository.entity.News;
+import com.mjc.school.service.exception.ServiceException;
+import com.mjc.school.service.mapper.NewsMapper;
+import com.mjc.school.service.interfaces.NewsService;
 import com.mjc.school.service.impl.NewsServiceImpl;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class ServiceTest {
+class ServiceTest {
 
     private final NewsService<NewsDTO> newsService = new NewsServiceImpl();
     private final News newsWithoutId = News.getBuilder()
@@ -28,7 +28,7 @@ public class ServiceTest {
             .build();
 
     @Test
-    public void mapToNewsDTO() {
+    void mapToNewsDTO() {
         NewsDTO newsDTO = NewsMapper.INSTANCE.newsToNewsDTO(newsWithoutId);
 
         assertNotNull(newsDTO);
@@ -40,7 +40,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void createNews() throws ServiceException {
+    void createNews() throws ServiceException {
         NewsDTO newsDTO = newsService.createNews(NewsMapper.INSTANCE.newsToNewsDTO(newsWithoutId)).get();
 
         assertEquals(newsWithoutId.getTitle(), newsDTO.getTitle());
@@ -49,7 +49,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void updateNews() throws ServiceException {
+    void updateNews() throws ServiceException {
         NewsDTO newsDTO = newsService.updateNews(NewsMapper.INSTANCE.newsToNewsDTO(newsWithId)).get();
 
         assertEquals(newsWithId.getTitle(), newsDTO.getTitle());
@@ -58,7 +58,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void deleteNews() throws ServiceException {
+    void deleteNews() throws ServiceException {
         List<NewsDTO> beforeDelete = newsService.getAllNews();
         newsService.deleteNews(10L);
         List<NewsDTO> afterDelete = newsService.getAllNews();
@@ -66,7 +66,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void validationTest() {
+    void validationTest() {
         NewsDTO invalidTitle = new NewsDTO();
         invalidTitle.setTitle("T");
         invalidTitle.setContent("Content");

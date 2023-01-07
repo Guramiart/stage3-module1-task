@@ -3,11 +3,10 @@ package com.mjc.school.factory;
 import com.mjc.school.command.Command;
 import com.mjc.school.command.impl.*;
 import com.mjc.school.controller.Controller;
-import com.mjc.school.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDTO;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 

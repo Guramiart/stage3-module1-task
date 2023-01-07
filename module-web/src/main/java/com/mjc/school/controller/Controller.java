@@ -1,10 +1,9 @@
 package com.mjc.school.controller;
 
-import com.mjc.school.dto.NewsDTO;
-import com.mjc.school.exception.ServiceException;
+import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.service.exception.ServiceException;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface Controller<T extends NewsDTO>{
 
