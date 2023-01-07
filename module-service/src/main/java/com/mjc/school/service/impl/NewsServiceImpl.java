@@ -1,17 +1,17 @@
 package com.mjc.school.service.impl;
 
-import com.mjc.school.constants.ServiceConstants;
-import com.mjc.school.dao.AbstractDAO;
-import com.mjc.school.dao.impl.NewsDAO;
-import com.mjc.school.dto.NewsDTO;
-import com.mjc.school.entity.News;
-import com.mjc.school.exception.ArgumentValidException;
-import com.mjc.school.exception.ErrorCode;
-import com.mjc.school.exception.NotFoundException;
-import com.mjc.school.exception.ServiceException;
-import com.mjc.school.mapper.NewsMapper;
-import com.mjc.school.service.NewsService;
-import com.mjc.school.utils.NewsValidator;
+import com.mjc.school.service.constants.ServiceConstants;
+import com.mjc.school.repository.dao.AbstractDAO;
+import com.mjc.school.repository.impl.NewsDAO;
+import com.mjc.school.service.dto.NewsDTO;
+import com.mjc.school.repository.entity.News;
+import com.mjc.school.service.exception.ArgumentValidException;
+import com.mjc.school.service.exception.ErrorCode;
+import com.mjc.school.service.exception.NotFoundException;
+import com.mjc.school.service.exception.ServiceException;
+import com.mjc.school.service.mapper.NewsMapper;
+import com.mjc.school.service.interfaces.NewsService;
+import com.mjc.school.service.utils.NewsValidator;
 
 import java.util.ArrayList;
 import java.util.List;

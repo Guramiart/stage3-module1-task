@@ -1,7 +1,7 @@
 package com.mjc.school.menu;
 
 import com.mjc.school.controller.Controller;
-import com.mjc.school.dto.NewsDTO;
+import com.mjc.school.service.dto.NewsDTO;
 import com.mjc.school.factory.OperationFactory;
 
 import java.util.Scanner;
